@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="polklibrary.migrations.export">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot
+      directory="overrides"
+      layer="polklibrary.migrations.export.interfaces.IPolklibraryMigrationsExportLayer"
+      />
+
+  <!-- Publish static files -->
+  <browser:resourceDirectory
+      name="polklibrary.migrations.export"
+      directory="static"
+      />
+
+    <browser:page
+        for="*"
+        name="polklibrary_export"
+        class=".exporter.Exporter"
+        permission="zope2.View"
+        />
+    
+
+
+</configure>
