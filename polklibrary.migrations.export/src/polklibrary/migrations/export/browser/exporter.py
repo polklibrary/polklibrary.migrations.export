@@ -9,25 +9,27 @@ class Exporter(BrowserView):
     def __call__(self):
         self.request.response.setHeader('Content-Type', 'application/json')
     
-        # Folders one lvl deep
-        if self.request.form.get('folder','0') == '1':
-            data = self.get_object_data(self.context) # get folder data
+        with api.env.adopt_roles(roles=['Manager']):
         
-            all_data = []
-            for brain in self.context.getFolderContents():
-                if self.request.form.get('ignore_folderish','0') == '0':
-                    all_data.append(self.get_object_data(brain.getObject(), brain))
-                elif not brain.is_folderish:
-                    all_data.append(self.get_object_data(brain.getObject(), brain))
+            # Folders one lvl deep
+            if self.request.form.get('folder','0') == '1':
+                data = self.get_object_data(self.context) # get folder data
+            
+                all_data = []
+                for brain in self.context.getFolderContents():
+                    if self.request.form.get('ignore_folderish','0') == '0':
+                        all_data.append(self.get_object_data(brain.getObject(), brain))
+                    elif not brain.is_folderish:
+                        all_data.append(self.get_object_data(brain.getObject(), brain))
+                    
+                data['__content'] = all_data
                 
-            data['__content'] = all_data
-            
-            return json.dumps(data, indent=4, sort_keys=True)
-            
-            
-        # Single object
-        return json.dumps(self.get_object_data(self.context), indent=4, sort_keys=True)
-    
+                return json.dumps(data, indent=4, sort_keys=True)
+                
+                
+            # Single object
+            return json.dumps(self.get_object_data(self.context), indent=4, sort_keys=True)
+        
     
     def get_object_data(self, obj, brain=None):
     
