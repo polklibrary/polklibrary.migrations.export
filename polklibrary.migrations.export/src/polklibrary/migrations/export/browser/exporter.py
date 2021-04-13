@@ -51,10 +51,10 @@ class Exporter(BrowserView):
         if hasattr(obj, 'exclude_from_nav'):
             data['exclude_from_nav'] = obj.exclude_from_nav
         
-        if hasattr(obj, 'body') and obj.body:
+        if hasattr(obj, 'body') and obj.body and hasattr(obj.body, 'output'):
             data['body'] = obj.body.output
             
-        if hasattr(obj, 'text') and obj.text:
+        if hasattr(obj, 'text') and obj.text and hasattr(obj.text, 'output'):
             data['text'] = obj.text.output
             
         if hasattr(obj, 'getRemoteUrl') and obj.getRemoteUrl:
@@ -161,19 +161,19 @@ class Exporter(BrowserView):
         if hasattr(obj, 'subject_headings') and obj.subject_headings:
             data['subject_headings'] = obj.subject_headings
         
-        if hasattr(obj, 'professional_background') and obj.professional_background:
+        if hasattr(obj, 'professional_background') and obj.professional_background and hasattr(obj.professional_background, 'output'):
             data['professional_background'] = obj.professional_background.output
             
-        if hasattr(obj, 'community_involvment') and obj.community_involvment:
+        if hasattr(obj, 'community_involvment') and obj.community_involvment and hasattr(obj.community_involvment, 'output'):
             data['community_involvment'] = obj.community_involvment.output
             
-        if hasattr(obj, 'education') and obj.education:
+        if hasattr(obj, 'education') and obj.education and obj.education.output and hasattr(obj.education, 'output'):
             data['education'] = obj.education.output
             
-        if hasattr(obj, 'prebody') and obj.prebody:
+        if hasattr(obj, 'prebody') and obj.prebody and hasattr(obj.prebody, 'output'):
             data['prebody'] = obj.prebody.output
             
-        if hasattr(obj, 'message') and obj.message:
+        if hasattr(obj, 'message') and obj.message and hasattr(obj.message, 'output'):
             data['message'] = obj.message.output
             
         if hasattr(obj, 'libchat') and obj.libchat:
