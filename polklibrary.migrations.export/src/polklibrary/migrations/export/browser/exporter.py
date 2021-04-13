@@ -167,7 +167,7 @@ class Exporter(BrowserView):
         if hasattr(obj, 'community_involvment') and obj.community_involvment and hasattr(obj.community_involvment, 'output'):
             data['community_involvment'] = obj.community_involvment.output
             
-        if hasattr(obj, 'education') and obj.education and obj.education.output and hasattr(obj.education, 'output'):
+        if hasattr(obj, 'education') and obj.education and hasattr(obj.education, 'output'):
             data['education'] = obj.education.output
             
         if hasattr(obj, 'prebody') and obj.prebody and hasattr(obj.prebody, 'output'):
