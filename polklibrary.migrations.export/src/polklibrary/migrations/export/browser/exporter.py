@@ -52,10 +52,10 @@ class Exporter(BrowserView):
             data['exclude_from_nav'] = obj.exclude_from_nav
         
         if hasattr(obj, 'body') and obj.body:
-            data['body'] = obj.body.raw
+            data['body'] = obj.body.output
             
         if hasattr(obj, 'text') and obj.text:
-            data['text'] = obj.text.raw
+            data['text'] = obj.text.output
             
         if hasattr(obj, 'getRemoteUrl') and obj.getRemoteUrl:
             data['getRemoteUrl'] = obj.getRemoteUrl
@@ -162,19 +162,19 @@ class Exporter(BrowserView):
             data['subject_headings'] = obj.subject_headings
         
         if hasattr(obj, 'professional_background') and obj.professional_background:
-            data['professional_background'] = obj.professional_background.raw
+            data['professional_background'] = obj.professional_background.output
             
         if hasattr(obj, 'community_involvment') and obj.community_involvment:
-            data['community_involvment'] = obj.community_involvment.raw
+            data['community_involvment'] = obj.community_involvment.output
             
         if hasattr(obj, 'education') and obj.education:
-            data['education'] = obj.education.raw
+            data['education'] = obj.education.output
             
         if hasattr(obj, 'prebody') and obj.prebody:
-            data['prebody'] = obj.prebody.raw
+            data['prebody'] = obj.prebody.output
             
         if hasattr(obj, 'message') and obj.message:
-            data['message'] = obj.message.raw
+            data['message'] = obj.message.output
             
         if hasattr(obj, 'libchat') and obj.libchat:
             data['libchat'] = obj.libchat
