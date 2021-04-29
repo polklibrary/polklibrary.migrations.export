@@ -1,13 +1,21 @@
 from plone import api
+from plone.memoize import ram
 from Products.Five import BrowserView
-import json, logging
+import json, logging, time
 
 logger = logging.getLogger("Plone")
+
+
+def _cache_key(method, self):
+    return (self.portal.id, time.time() // (60 * 60))
+
 
 class Exporter(BrowserView):
 
     def __call__(self):
         self.request.response.setHeader('Content-Type', 'application/json')
+    
+        #uids = self.get_cached_uids()
     
         with api.env.adopt_roles(roles=['Manager']):
         
@@ -39,6 +47,7 @@ class Exporter(BrowserView):
         
         # PLONE NATIVE -----------------------------------
         data['portal_type'] = obj.portal_type
+        data['UID'] = obj.UID()
         data['getId'] = obj.getId()
         data['title'] = obj.title
         
@@ -196,6 +205,17 @@ class Exporter(BrowserView):
     def to_base64(self, data, header):
         return header + data.encode('base64')
     
+            
+    @ram.cache(_cache_key)
+    def get_cached_uids(self):
+        print("Creating cached uids")
+        results = {}
+        #brains = api.content.find()
+        catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog()
+        for brain in brains:
+            results[brain.UID] = brain.getURL()
+        return results
     
     
     @property
