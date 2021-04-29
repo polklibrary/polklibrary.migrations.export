@@ -81,7 +81,7 @@ class Exporter(BrowserView):
             data['location'] = obj.location
         
         if hasattr(obj, 'Subject') and obj.Subject:
-            data['Subject'] = obj.Subject()
+            data['subjects'] = obj.Subject()
         
             
         # To Base64 ------------------------------------------
