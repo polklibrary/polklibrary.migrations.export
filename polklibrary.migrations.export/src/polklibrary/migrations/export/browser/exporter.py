@@ -47,7 +47,7 @@ class Exporter(BrowserView):
         
         # PLONE NATIVE -----------------------------------
         data['portal_type'] = obj.portal_type
-        data['UID'] = obj.UID()
+        data['_plone.uuid'] = obj.UID()
         data['getId'] = obj.getId()
         data['title'] = obj.title
         
@@ -87,15 +87,15 @@ class Exporter(BrowserView):
         # To Base64 ------------------------------------------
         
         if hasattr(obj, 'image') and obj.image:
-            data['image'] = self.to_base64(obj.image.data, 'BLOB:')
+            data['image:IMAGE'] = self.to_base64(obj.image.data)
             data['filename'] = obj.image.filename
             
         if hasattr(obj, 'file') and obj.file:
-            data['file'] = self.to_base64(obj.file.data, 'BLOB:')
+            data['file:FILE'] = self.to_base64(obj.file.data)
             data['filename'] = obj.file.filename
         
         if hasattr(obj, 'json_data') and obj.json_data:
-            data['json_data'] = self.to_base64(obj.json_data, 'JSON:')
+            data['json_data:JSON'] = self.to_base64(obj.json_data)
         
         
         # UWO CUSTOM -------------------------------------
@@ -202,8 +202,8 @@ class Exporter(BrowserView):
         return data
         
     
-    def to_base64(self, data, header):
-        return header + data.encode('base64')
+    def to_base64(self, data):
+        return data.encode('base64')
     
             
     @ram.cache(_cache_key)
