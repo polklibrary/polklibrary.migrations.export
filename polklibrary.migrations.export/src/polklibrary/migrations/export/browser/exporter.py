@@ -1,7 +1,7 @@
 from plone import api
 from plone.memoize import ram
 from Products.Five import BrowserView
-import json, logging, time
+import json, logging, time, base64
 
 logger = logging.getLogger("Plone")
 
@@ -203,7 +203,7 @@ class Exporter(BrowserView):
         
     
     def to_base64(self, data):
-        return data.encode('base64')
+        return base64.b64encode(data)
     
             
     @ram.cache(_cache_key)
