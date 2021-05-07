@@ -23,6 +23,13 @@
         class=".exporter.Exporter"
         permission="zope2.View"
         />
+        
+    <browser:page
+        for="*"
+        name="polklibrary_emcpermalinkfix"
+        class=".emc_permalink_fix.EMCPermalinkFix"
+        permission="zope2.View"
+        />
     
 
 
