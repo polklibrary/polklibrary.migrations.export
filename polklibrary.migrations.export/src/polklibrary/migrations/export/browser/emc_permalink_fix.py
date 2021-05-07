@@ -27,7 +27,6 @@ class EMCPermalinkFix(BrowserView):
             output = output.replace(k,v) # second without &amp;
             #output = output.replace(unicode(k, "utf-8"), unicode(v, "utf-8"))
     
-        print(output)
         #self.context.setText("Some text", mimetype='text/html')
         self.context.text = RichTextValue(output, 'text/html', 'text/html')
         #self.context.text = output
