@@ -21,7 +21,7 @@
         for="*"
         name="polklibrary_export"
         class=".exporter.Exporter"
-        permission="cmf.ManagePortal"
+        permission="zope2.View"
         />
         
     <browser:page
