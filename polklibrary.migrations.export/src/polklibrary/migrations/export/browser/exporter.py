@@ -221,3 +221,29 @@ class Exporter(BrowserView):
     @property
     def portal(self):
         return api.portal.get()
+        
+        
+        
+class ExporterList(BrowserView):
+
+    output = ""
+
+    def __call__(self):
+        #self.request.response.setHeader('Content-Type', 'application/json')
+        
+        with api.env.adopt_roles(roles=['Manager']):
+        
+            # Folders one lvl deep
+            target = self.request.form.get('target','[NO target PARAMETER PROVIDED]')
+    
+            for brain in self.context.getFolderContents():
+                link =  target + '/polklibrary_import?url=' + brain.getURL() + '/polklibrary_export'
+                self.output += '<a target="_blank" href="' + link + '">' + link + '</a> <br />'
+            
+                
+        return self.output
+        
+    
+    @property
+    def portal(self):
+        return api.portal.get()

@@ -26,6 +26,13 @@
         
     <browser:page
         for="*"
+        name="polklibrary_exportlist"
+        class=".exporter.ExporterList"
+        permission="zope2.View"
+        />
+        
+    <browser:page
+        for="*"
         name="polklibrary_emcpermalinkfix"
         class=".emc_permalink_fix.EMCPermalinkFix"
         permission="zope2.View"
