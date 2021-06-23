@@ -63,7 +63,10 @@ class Exporter(BrowserView):
             data['exclude_from_nav'] = obj.exclude_from_nav
         
         if hasattr(obj, 'body') and obj.body and hasattr(obj.body, 'output'):
-            data['body:TEXT'] = obj.body.output
+            content = obj.body.output
+            if self.request.form.get('update','0') == '1': 
+                content = content.replace('www.uwosh.edu/library', 'library.uwosh.edu')
+            data['body:TEXT'] = content
             
         if hasattr(obj, 'text') and obj.text and hasattr(obj.text, 'output'):
             data['text:TEXT'] = obj.text.output
