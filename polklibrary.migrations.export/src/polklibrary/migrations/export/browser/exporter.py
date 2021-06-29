@@ -202,6 +202,45 @@ class Exporter(BrowserView):
         if hasattr(obj, 'set_context') and obj.set_context:
             data['set_context'] = obj.set_context
             
+        if hasattr(obj, 'content_type') and obj.content_type:
+            data['content_type'] = obj.content_type
+            
+        if hasattr(obj, 'enabled_browse') and obj.enabled_browse:
+            data['enabled_browse'] = obj.enabled_browse
+            
+        if hasattr(obj, 'limit') and obj.limit:
+            data['limit'] = obj.limit
+            
+        if hasattr(obj, 'limit') and obj.limit:
+            data['limit'] = obj.limit
+            
+        if hasattr(obj, 'query_logic') and obj.query_logic:
+            data['query_logic'] = obj.query_logic
+            
+        if hasattr(obj, 'by_id') and obj.by_id:
+            data['by_id'] = obj.by_id
+            
+        if hasattr(obj, 'subject_heading') and obj.subject_heading:
+            data['subject_heading'] = obj.subject_heading
+            
+        if hasattr(obj, 'series_title') and obj.series_title:
+            data['series_title'] = obj.series_title
+            
+        if hasattr(obj, 'associated_entity') and obj.associated_entity:
+            data['associated_entity'] = obj.associated_entity
+            
+        if hasattr(obj, 'geography') and obj.geography:
+            data['geography'] = obj.geography
+            
+        if hasattr(obj, 'genre') and obj.genre:
+            data['genre'] = obj.genre
+            
+        if hasattr(obj, 'sort_type') and obj.sort_type:
+            data['sort_type'] = obj.sort_type
+            
+        if hasattr(obj, 'sort_direction') and obj.sort_direction:
+            data['sort_direction'] = obj.sort_direction
+            
         return data
         
     
