@@ -202,14 +202,11 @@ class Exporter(BrowserView):
         if hasattr(obj, 'set_context') and obj.set_context:
             data['set_context'] = obj.set_context
             
-        if hasattr(obj, 'content_type') and obj.content_type:
-            data['content_type'] = obj.content_type
+        if hasattr(obj, 'format_type') and obj.format_type:
+            data['format_type'] = obj.format_type
             
         if hasattr(obj, 'enabled_browse') and obj.enabled_browse:
             data['enabled_browse'] = obj.enabled_browse
-            
-        if hasattr(obj, 'limit') and obj.limit:
-            data['limit'] = obj.limit
             
         if hasattr(obj, 'limit') and obj.limit:
             data['limit'] = obj.limit
