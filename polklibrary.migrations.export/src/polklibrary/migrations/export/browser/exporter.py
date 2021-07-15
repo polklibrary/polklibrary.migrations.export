@@ -1,5 +1,6 @@
 from plone import api
 from plone.memoize import ram
+from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 import json, logging, time, base64
 
@@ -24,11 +25,12 @@ class Exporter(BrowserView):
                 data = self.get_object_data(self.context) # get folder data
             
                 all_data = []
-                for brain in self.context.getFolderContents():
+                #for brain in self.context.getFolderContents():
+                for o in self.context.contentItems():
                     if self.request.form.get('ignore_folderish','0') == '0':
-                        all_data.append(self.get_object_data(brain.getObject(), brain))
+                        all_data.append(self.get_object_data(o[1]))
                     elif not brain.is_folderish:
-                        all_data.append(self.get_object_data(brain.getObject(), brain))
+                        all_data.append(self.get_object_data(o[1]))
                     
                 data['__content'] = all_data
                 
@@ -39,11 +41,9 @@ class Exporter(BrowserView):
             return json.dumps(self.get_object_data(self.context), indent=4, sort_keys=True)
         
     
-    def get_object_data(self, obj, brain=None):
+    def get_object_data(self, obj):
     
         data = {}
-        if not brain:
-            brain = api.content.find(obj)[0]
         
         # PLONE NATIVE -----------------------------------
         data['portal_type'] = obj.portal_type
@@ -51,10 +51,10 @@ class Exporter(BrowserView):
         data['getId'] = obj.getId()
         data['title'] = obj.title
         
-        if brain.review_state:
-            data['review_state'] = brain.review_state
-        else:
-            data['review_state'] = ""
+        
+        portal_workflow = getToolByName(self.portal, "portal_workflow")
+        review_state = portal_workflow.getInfoFor(obj, 'review_state')
+        data['review_state'] = review_state
         
         if hasattr(obj, 'description') and obj.description:
             data['description'] = obj.description
