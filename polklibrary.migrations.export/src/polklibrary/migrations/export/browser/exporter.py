@@ -79,10 +79,13 @@ class Exporter(BrowserView):
         
         if hasattr(obj, 'end') and obj.end:
             data['end'] = obj.end.strftime("%Y-%m-%d, %H:%M")
-        
+
         if hasattr(obj, 'location') and obj.location:
             data['location'] = obj.location
         
+        if hasattr(obj, 'Creator') and obj.Creator():
+            data['creator'] = obj.Creator()
+            
         if hasattr(obj, 'Subject') and obj.Subject:
             data['subjects'] = obj.Subject()
         
